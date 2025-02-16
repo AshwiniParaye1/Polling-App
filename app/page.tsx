@@ -17,20 +17,21 @@ export default function Home() {
   };
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle className="text-3xl font-bold text-center">
-            Polling App
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-8 md:grid-cols-2">
-            <CreatePoll onPollCreated={handlePollCreated} />
-            <PollList onPollVoted={handlePollVoted} />
-          </div>
-        </CardContent>
-      </Card>
-    </main>
+    <>
+      <main className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-center pb-6"> Polling App</h1>
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="text-3xl font-bold text-center"></CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-8 md:grid-cols-2">
+              <CreatePoll onPollCreated={handlePollCreated} />
+              <PollList onPollVoted={handlePollVoted} />
+            </div>
+          </CardContent>
+        </Card>
+      </main>
+    </>
   );
 }
