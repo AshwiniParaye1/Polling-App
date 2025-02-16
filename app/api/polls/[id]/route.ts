@@ -1,6 +1,6 @@
 import dbConnect from "@/app/lib/mongodb";
 import Poll from "@/app/models/Poll";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
