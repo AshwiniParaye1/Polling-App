@@ -81,7 +81,7 @@ const CreatePoll: React.FC<CreatePollProps> = ({ onPollCreated }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-colors">
       <h2 className="text-2xl font-semibold">Create a Poll</h2>
       {error && (
         <Alert variant="destructive">
@@ -96,6 +96,7 @@ const CreatePoll: React.FC<CreatePollProps> = ({ onPollCreated }) => {
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             placeholder="Enter your question"
+            className="bg-gray-100 dark:bg-gray-700 dark:text-white"
           />
         </div>
         <div className="space-y-4">
@@ -106,6 +107,7 @@ const CreatePoll: React.FC<CreatePollProps> = ({ onPollCreated }) => {
                 value={option}
                 onChange={(e) => updateOption(index, e.target.value)}
                 placeholder={`Option ${index + 1}`}
+                className="bg-gray-100 dark:bg-gray-700 dark:text-white"
               />
               {options.length > 2 && (
                 <Button
@@ -119,19 +121,12 @@ const CreatePoll: React.FC<CreatePollProps> = ({ onPollCreated }) => {
               )}
             </div>
           ))}
-          {options.length < 6 && (
-            <Button
-              type="button"
-              variant="outline"
-              onClick={addOption}
-              className="w-full"
-            >
-              <PlusCircle className="mr-2 h-4 w-4" />
-              Add Option
-            </Button>
-          )}
         </div>
-        <Button type="submit" className="w-full" disabled={isSubmitting}>
+        <Button
+          type="submit"
+          className="w-full bg-blue-500 dark:bg-blue-600"
+          disabled={isSubmitting}
+        >
           {isSubmitting ? "Creating..." : "Create Poll"}
         </Button>
       </form>
