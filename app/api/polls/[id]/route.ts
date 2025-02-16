@@ -1,15 +1,15 @@
 import dbConnect from "@/app/lib/mongodb";
 import Poll from "@/app/models/Poll";
-import { type NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: { id: string } }
 ) {
   try {
     await dbConnect();
 
-    const { id } = params;
+    const { id } = context.params;
     const poll = await Poll.findById(id);
 
     if (!poll) {
@@ -27,11 +27,11 @@ export async function GET(
 }
 
 export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: { id: string } }
 ) {
   try {
-    const body = await req.json();
+    const body = await request.json();
     const { optionIndex } = body;
 
     if (optionIndex === undefined || optionIndex < 0) {
@@ -43,7 +43,7 @@ export async function PUT(
 
     await dbConnect();
 
-    const { id } = params;
+    const { id } = context.params;
     const poll = await Poll.findById(id);
 
     if (!poll) {
