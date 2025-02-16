@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import { IPoll } from "@/app/models/Poll";
+import Link from "next/link";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -142,12 +143,15 @@ export default function PollDetail() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">{poll.question}</CardTitle>
+      <Card className="shadow-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-lg">
+        <CardHeader className="border-b border-gray-200 dark:border-gray-700 pb-4">
+          <CardTitle className="text-2xl font-semibold text-center text-black dark:text-white">
+            {poll.question}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-8 md:grid-cols-2">
+            {/* Voting Section */}
             <div className="space-y-6">
               {voteError && (
                 <Alert variant="destructive">
@@ -157,16 +161,23 @@ export default function PollDetail() {
               <RadioGroup
                 value={selectedOption || ""}
                 onValueChange={setSelectedOption}
+                className="space-y-3"
               >
                 {poll.options.map((option, index) => (
-                  <div key={index} className="flex items-center space-x-2">
+                  <div
+                    key={index}
+                    className="flex items-center space-x-3 p-3 border border-gray-300 dark:border-gray-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-all mt-8"
+                  >
                     <RadioGroupItem
                       value={index.toString()}
                       id={`option-${index}`}
                     />
-                    <Label htmlFor={`option-${index}`} className="flex-1">
+                    <Label
+                      htmlFor={`option-${index}`}
+                      className="flex-1 text-black dark:text-white"
+                    >
                       {option.text}
-                      <span className="ml-2 text-muted-foreground">
+                      <span className="ml-2 text-gray-500 dark:text-gray-400">
                         ({option.votes} votes)
                       </span>
                     </Label>
@@ -176,24 +187,41 @@ export default function PollDetail() {
               <Button
                 onClick={handleVote}
                 disabled={isVoting || !selectedOption}
-                className="w-full"
+                className="w-full bg-gray-900 dark:bg-gray-100 text-white dark:text-black font-medium py-2 px-4 rounded-md transition-all"
               >
                 {isVoting ? "Voting..." : "Vote"}
               </Button>
             </div>
-            <div className="aspect-square">
-              <Pie
-                data={chartData}
-                options={{
-                  responsive: true,
-                  plugins: {
-                    legend: {
-                      position: "bottom"
+
+            {/* Chart Section */}
+            <div className="aspect-square flex items-center justify-center p-6 bg-gray-100 dark:bg-gray-900 rounded-md mt-8 w-full h-96">
+              {poll.options.every((option) => option.votes === 0) ? (
+                <p className="text-lg font-medium text-gray-500 dark:text-gray-400">
+                  No votes yet. Be the first to vote!
+                </p>
+              ) : (
+                <Pie
+                  data={chartData}
+                  options={{
+                    responsive: true,
+                    plugins: {
+                      legend: {
+                        position: "bottom"
+                      }
                     }
-                  }
-                }}
-              />
+                  }}
+                />
+              )}
             </div>
+          </div>
+
+          {/* Home Button */}
+          <div className="mt-6 flex justify-center">
+            <Link href="/">
+              <Button className="bg-gray-800 dark:bg-gray-200 text-white dark:text-black font-medium py-2 px-6 rounded-md transition-all">
+                ⬅️ Home
+              </Button>
+            </Link>
           </div>
         </CardContent>
       </Card>
