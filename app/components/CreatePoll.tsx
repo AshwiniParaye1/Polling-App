@@ -1,3 +1,5 @@
+//components/CreatePoll.tsx
+
 import { useState } from "react";
 import { PlusCircle, MinusCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";

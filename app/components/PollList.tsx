@@ -1,3 +1,5 @@
+//components/PollList.tsx
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Alert, AlertDescription } from "@/components/ui/alert";
