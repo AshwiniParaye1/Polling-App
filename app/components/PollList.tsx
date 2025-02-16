@@ -59,8 +59,9 @@ const PollList: React.FC<PollListProps> = ({ onPollVoted }) => {
   }
 
   return (
-    <div className="space-y-4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-colors">
+    <div className="space-y-4 bg-white dark:bg-black text-black dark:text-white p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 transition-all">
       <h2 className="text-2xl font-semibold">Current Polls</h2>
+
       {polls.length === 0 ? (
         <p className="text-gray-500 dark:text-gray-400">No polls available.</p>
       ) : (
@@ -68,7 +69,7 @@ const PollList: React.FC<PollListProps> = ({ onPollVoted }) => {
           {polls.map((poll) => (
             <li
               key={poll._id?.toString()}
-              className="rounded-lg border p-4 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="rounded-lg border border-gray-300 dark:border-gray-700 p-4 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
             >
               <Link
                 href={`/polls/${poll._id}`}

@@ -3,6 +3,21 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --radius: 0.5rem
+    --radius: 0.5rem;
   }
+}
+
+/* Custom minimal button styles */
+.button {
+  @apply px-4 py-2 rounded-md transition-all;
+}
+
+/* Light mode button */
+.button-light {
+  @apply bg-gray-900 text-white hover:bg-gray-700;
+}
+
+/* Dark mode button */
+.button-dark {
+  @apply bg-gray-100 text-black hover:bg-gray-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600;
 }

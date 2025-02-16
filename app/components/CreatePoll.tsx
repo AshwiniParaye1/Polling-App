@@ -81,13 +81,15 @@ const CreatePoll: React.FC<CreatePollProps> = ({ onPollCreated }) => {
   };
 
   return (
-    <div className="space-y-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-colors">
+    <div className="space-y-6 bg-white dark:bg-black text-black dark:text-white p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 transition-all">
       <h2 className="text-2xl font-semibold">Create a Poll</h2>
+
       {error && (
         <Alert variant="destructive">
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="question">Question</Label>
@@ -96,9 +98,10 @@ const CreatePoll: React.FC<CreatePollProps> = ({ onPollCreated }) => {
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             placeholder="Enter your question"
-            className="bg-gray-100 dark:bg-gray-700 dark:text-white"
+            className="bg-gray-200 dark:bg-gray-800 dark:text-white"
           />
         </div>
+
         <div className="space-y-4">
           <Label>Options</Label>
           {options.map((option, index) => (
@@ -107,28 +110,28 @@ const CreatePoll: React.FC<CreatePollProps> = ({ onPollCreated }) => {
                 value={option}
                 onChange={(e) => updateOption(index, e.target.value)}
                 placeholder={`Option ${index + 1}`}
-                className="bg-gray-100 dark:bg-gray-700 dark:text-white"
+                className="bg-gray-200 dark:bg-gray-800 dark:text-white"
               />
               {options.length > 2 && (
-                <Button
+                <button
                   type="button"
-                  variant="outline"
-                  size="icon"
+                  className="button button-dark"
                   onClick={() => removeOption(index)}
                 >
                   <MinusCircle className="h-4 w-4" />
-                </Button>
+                </button>
               )}
             </div>
           ))}
         </div>
-        <Button
+
+        <button
           type="submit"
-          className="w-full bg-blue-500 dark:bg-blue-600"
+          className="button button-light w-full"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Creating..." : "Create Poll"}
-        </Button>
+        </button>
       </form>
     </div>
   );
