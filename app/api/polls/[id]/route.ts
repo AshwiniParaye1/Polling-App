@@ -1,16 +1,18 @@
 import dbConnect from "@/app/lib/mongodb";
 import Poll from "@/app/models/Poll";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  context: { params: { id: string } }
-) {
+type RouteContext = {
+  params: {
+    id: string;
+  };
+};
+
+export async function GET(_request: NextRequest, { params }: RouteContext) {
   try {
     await dbConnect();
 
-    const { id } = context.params;
-    const poll = await Poll.findById(id);
+    const poll = await Poll.findById(params.id);
 
     if (!poll) {
       return NextResponse.json({ error: "Poll not found" }, { status: 404 });
@@ -26,10 +28,7 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  request: NextRequest,
-  context: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest, { params }: RouteContext) {
   try {
     const body = await request.json();
     const { optionIndex } = body;
@@ -43,8 +42,7 @@ export async function PUT(
 
     await dbConnect();
 
-    const { id } = context.params;
-    const poll = await Poll.findById(id);
+    const poll = await Poll.findById(params.id);
 
     if (!poll) {
       return NextResponse.json({ error: "Poll not found" }, { status: 404 });
