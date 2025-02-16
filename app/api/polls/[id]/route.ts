@@ -1,15 +1,15 @@
 import dbConnect from "@/app/lib/mongodb";
 import Poll from "@/app/models/Poll";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-  req: Request,
+  req: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
     await dbConnect();
 
-    const { id } = params; // Fixed: Access params directly
+    const { id } = params;
     const poll = await Poll.findById(id);
 
     if (!poll) {
@@ -27,7 +27,7 @@ export async function GET(
 }
 
 export async function PUT(
-  req: Request,
+  req: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
