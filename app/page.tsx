@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import CreatePoll from "./components/CreatePoll";
 import PollList from "./components/PollList";
 import ThemeToggle from "./components/ThemeToggle";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Home() {
   const [refreshPolls, setRefreshPolls] = useState(false);
@@ -30,6 +31,7 @@ export default function Home() {
           </div>
         </CardContent>
       </Card>
+      <ToastContainer />
     </main>
   );
 }
