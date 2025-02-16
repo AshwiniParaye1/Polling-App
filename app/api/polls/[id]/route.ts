@@ -1,14 +1,15 @@
-//api/polls/[id]/route.ts
-
 import dbConnect from "@/app/lib/mongodb";
 import Poll from "@/app/models/Poll";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request, context: { params: { id: string } }) {
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     await dbConnect();
 
-    const { id } = await context.params;
+    const { id } = params; // Fixed: Access params directly
     const poll = await Poll.findById(id);
 
     if (!poll) {
@@ -25,7 +26,10 @@ export async function GET(req: Request, context: { params: { id: string } }) {
   }
 }
 
-export async function PUT(req: Request, context: { params: { id: string } }) {
+export async function PUT(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     const body = await req.json();
     const { optionIndex } = body;
@@ -39,7 +43,7 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
 
     await dbConnect();
 
-    const { id } = await context.params;
+    const { id } = params;
     const poll = await Poll.findById(id);
 
     if (!poll) {
